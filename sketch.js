@@ -584,7 +584,7 @@ function scene(){
 	 	axis(color(184, 87, 87),"X");
     axis(color(0, 143, 0),"Y");
     axis(color(0, 115, 255),"Z");
-    circleWire(Rel[0],20000);
+//     circleWire(Rel[0],20000);
     cuboidWire(Rel[1],40,40,40);
     cuboidWire(Rel[2],40,40,40);
     pyramidWire(Rel[3],40,40,40);
