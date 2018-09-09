@@ -17,6 +17,7 @@ var D;
 var vel;
 var windowResize;
 var fps;
+var lineWidthConstantSize;
 } // Variables
 
 function reset(){
@@ -60,9 +61,7 @@ function reset(){
 	    {x:-400, y:80, z:600},
 	    {x:400, y:80, z:600},
 	    
-	    {x:0, y:0, z:0},
-	    
-	    {x:600, y:40, z:1400},
+	    {x:400, y:50, z:1400},
 	];
 	Rel = [];
 	KEY = "";
@@ -71,6 +70,7 @@ function reset(){
 	vel = 5;
 	windowResize = false;
 	fps = 40;
+	lineWidthConstantSize = 0;
 }
 
 function setup() {
@@ -150,10 +150,11 @@ function coorMaths(C,Rs,coor){
 }
 function drawPoint(P1){
     if (!P1.NA){
-		stroke(255,0,0);
-        strokeWeight(5);
         point(P1.x,P1.y);
     }
+}
+function drawPointRAW(P1){
+		drawPoint(coorMaths(P1));
 }
 
 function drawLine(P1,P2){
@@ -179,6 +180,9 @@ function drawLine(P1,P2){
         } 
     }
 }
+function drawLineRAW(coor1,coor2){
+	drawLine(coorMaths(coor1),coorMaths(coor2));
+}
 
 function cuboidWire(coor,w,h,d,Rs){
     var w2 = w/2;
@@ -201,7 +205,7 @@ function cuboidWire(coor,w,h,d,Rs){
 //         drawPoint(C[c]);
     }
 
-    strokeWeight(1);
+    strokeWeight(lineWidthScale(coor));
     stroke(143, 143, 143);
 
     drawLine(C[0],C[1]);
@@ -225,11 +229,11 @@ function axis(colour,direction){
     strokeWeight(1);
     stroke(colour);
     switch (direction){
-    case "X": drawLine(coorMaths({x: -s-P.x,y: 0-P.y,z: 0-P.z}),coorMaths({x: s-P.x,y: 0-P.y,z: 0-P.z}));
+    case "X": drawLineRAW({x: -s-P.x,y: 0-P.y,z: 0-P.z},{x: s-P.x,y: 0-P.y,z: 0-P.z});
             break;
-    case "Y": drawLine(coorMaths({x: 0-P.x,y: -s-P.y,z: 0-P.z}),coorMaths({x: 0-P.x,y: s-P.y,z: 0-P.z}));
+    case "Y": drawLineRAW({x: 0-P.x,y: -s-P.y,z: 0-P.z},{x: 0-P.x,y: s-P.y,z: 0-P.z});
             break;
-    case "Z": drawLine(coorMaths({x: 0-P.x,y: 0-P.y,z: -s-P.z}),coorMaths({x: 0-P.x,y: 0-P.y,z: s-P.z})); 
+    case "Z": drawLineRAW({x: 0-P.x,y: 0-P.y,z: -s-P.z},{x: 0-P.x,y: 0-P.y,z: s-P.z}); 
     }
 }
 function pyramidWire(coor,w,h,d,Rs){
@@ -248,7 +252,7 @@ function pyramidWire(coor,w,h,d,Rs){
         C[c] = coorMaths(C[c],Rs,coor);
     }
 
-    strokeWeight(1);
+    strokeWeight(lineWidthScale(coor));
     stroke(143, 143, 143);
     
     drawLine(C[0],C[1]);
@@ -276,7 +280,7 @@ function rectWire(coor,w,d,Rs){
         C[c] = coorMaths(C[c],Rs,coor);
     }
     
-    strokeWeight(1);
+    strokeWeight(lineWidthScale(coor));
     stroke(143, 143, 143);
     
     drawLine(C[0],C[1]);
@@ -302,7 +306,7 @@ function tobleroneWire(coor,w,h,d,Rs){
         C[c] = coorMaths(C[c],Rs,coor);
     }
     
-    strokeWeight(1);
+    strokeWeight(lineWidthScale(coor));
     stroke(143, 143, 143);
     
     drawLine(C[0],C[1]);
@@ -334,7 +338,7 @@ function slantPyramidWire(coor,w,h,d,Rs){
         C[c] = coorMaths(C[c],Rs,coor);
     }
 
-    strokeWeight(1);
+    strokeWeight(lineWidthScale(coor));
     stroke(143, 143, 143);
     
     drawLine(C[0],C[1]);
@@ -366,7 +370,7 @@ function circleWire(coor,d,Rs,Q){
         C[c] = coorMaths(C[c],Rs,coor);
     }
     
-    strokeWeight(1);
+    strokeWeight(lineWidthScale(coor));
     stroke(143, 143, 143);
     
     for (var i = 0; i<C.length-1; i += 1){
@@ -403,7 +407,7 @@ function sphereWire(coor,d,Rs,Q){
         C[c] = coorMaths(C[c],Rs,coor);
     }
     
-    strokeWeight(1);
+    strokeWeight(lineWidthScale(coor));
     stroke(143, 143, 143);
     
     for (var i = 0; i<C.length-(360/A); i += 1){
@@ -445,7 +449,7 @@ function sphere2Wire(coor,d,Rs,Q){
         C3[c] = coorMaths(C3[c],Rs,coor);
     }
     
-    strokeWeight(1);
+    strokeWeight(lineWidthScale(coor));
     stroke(143, 143, 143);
     
     for (var i = 0; i<C1.length-(360/A); i += 1){
@@ -479,7 +483,7 @@ function cylinderWire(coor,d,h,Rs,Q){
         C2[c] = coorMaths(C2[c],Rs,coor);
     }
     
-    strokeWeight(1);
+    strokeWeight(lineWidthScale(coor));
     stroke(143, 143, 143);
     
     for (var i = 0; i<C1.length-1; i += 1){
@@ -514,7 +518,7 @@ function roofWire(coor,w,h,d){
         C[c] = coorMaths(C[c]);
     }
 
-    strokeWeight(1);
+    strokeWeight(lineWidthScale(coor));
     stroke(143, 143, 143);
     
     drawLine(C[0],C[1]);
@@ -529,7 +533,25 @@ function roofWire(coor,w,h,d){
     
     drawLine(C[4],C[5]);
 }
-
+function personWire(coor,s){
+	var angle = atan(coor.z/coor.x)+90;
+	var Sangle = sin(angle);
+	var Cangle = cos(angle);
+	cuboidWire({x:coor.x,y:coor.y+(3/8)*s,z:coor.z},s/4,s/4,s/4,{x:0,y:90,z:angle});
+	drawLineRAW({x:coor.x,y:coor.y+(1/4)*s,z:coor.z},{x:coor.x,y:coor.y-(1/8)*s,z:coor.z});
+	drawLineRAW({x:coor.x,y:coor.y-(1/8)*s,z:coor.z},{x:coor.x+(1/8)*s,y:coor.y-(1/2)*s,z:coor.z});
+	drawLineRAW({x:coor.x,y:coor.y-(1/8)*s,z:coor.z},{x:coor.x-(1/8)*s,y:coor.y-(1/2)*s,z:coor.z});
+	drawLineRAW({x:coor.x+(1/4)*s,y:coor.y+(1/8)*s,z:coor.z},{x:coor.x-(1/4)*s,y:coor.y+(1/8)*s,z:coor.z});
+	strokeWeight(4*lineWidthScale(coor));
+	if (coor.x<0){
+		drawPointRAW({x:coor.x+((1/8)*s*Sangle)+((3/64)*s*Cangle),y:coor.y+(13/32)*s,z:coor.z-((1/8)*s*Cangle)+((3/64)*s*Sangle)});
+		drawPointRAW({x:coor.x+((1/8)*s*Sangle)-((3/64)*s*Cangle),y:coor.y+(13/32)*s,z:coor.z-((1/8)*s*Cangle)-((3/64)*s*Sangle)});
+	} else {
+		drawPointRAW({x:coor.x-((1/8)*s*Sangle)-((3/64)*s*Cangle),y:coor.y+(13/32)*s,z:coor.z+((1/8)*s*Cangle)-((3/64)*s*Sangle)});
+		drawPointRAW({x:coor.x-((1/8)*s*Sangle)+((3/64)*s*Cangle),y:coor.y+(13/32)*s,z:coor.z+((1/8)*s*Cangle)+((3/64)*s*Sangle)});
+	}
+	strokeWeight(lineWidthScale(coor));
+}
 
 function cameraMove(){
     if (D.L){ 
@@ -586,8 +608,9 @@ function scene(){
     treeWire(Rel[16],160);
     treeWire(Rel[17],160);
     
-//     circle(Rel[18],100,{x:atan(Rel[14].z/Rel[14].x),y:90,z:0});
-	    
+//     cuboidWire(Rel[18],20,20,20,{x:0,y:90,z:atan(Rel[18].z/Rel[18].x)+90});
+		personWire(Rel[18],100);
+			    
     strokeWeight(1);
     stroke(255, 0, 0);
     line(-10,0,10,0);
@@ -603,6 +626,13 @@ function firstDraw(){
     cameraMove();
 }
 
+function lineWidthScale(coor){
+	if (!lineWidthConstantSize){
+		return 1000/sqrt(sq(coor.x)+sq(coor.y)+sq(coor.z));
+	} else {
+		return lineWidthConstantSize;
+	}
+}
 function applyKeyFunc(val){
     if (keyCode===37 || keyCode===65){ D.L=val; }
     if (keyCode===39 || keyCode===68){ D.R=val; }
