@@ -500,5 +500,6 @@ function applyKeyFunc(val){
     if (keyCode===38 || keyCode===87){ D.I=val; }
     if (keyCode===40 || keyCode===83){ D.O=val; }
     if (keyCode===13){ reset(); }
+    if (keyCode===72){alert("3D-Engine\n\nI built this from scratch in the summer of 2018, before I started my A-Levels. At this time I hadn't learned  matrices, so it took me a lot longer to build this project than it otherwise could have, however I still had lots of fun working on it!\n\nCONTROLS\n\nUse WASDZX to move.\n\nW = forwards\nA = left\nS = backwards\nD = right\nZ = up\nX = down\n\nDrag to rotate the camera.");}
     addKeyPressed();
 }

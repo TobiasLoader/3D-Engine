@@ -14,9 +14,7 @@ function draw() {
 	if (mouseIsPressed || keyIsPressed || windowResize){
     	firstDraw();
   }
-  if (seconds()<5){
-	  popUp("Use WASDZX to move");
-	}
+  popUp("Press H for Help",1);
   windowResize = false;
 }
 
