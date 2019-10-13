@@ -14,7 +14,9 @@ function draw() {
 	if (mouseIsPressed || keyIsPressed || windowResize){
     	firstDraw();
   }
-  popUp("Press H for Help",1);
+  if (!intructionPressed){
+  	popUp("Press the 'I' Key for Instructions",1);
+  }
   windowResize = false;
 }
 

@@ -500,6 +500,8 @@ function applyKeyFunc(val){
     if (keyCode===38 || keyCode===87){ D.I=val; }
     if (keyCode===40 || keyCode===83){ D.O=val; }
     if (keyCode===13){ reset(); }
-    if (keyCode===72){alert("3D-Engine\n\nI built this from scratch in the summer of 2018, before I started my A-Levels. At this time I hadn't learned  matrices, so it took me a lot longer to build this project than it otherwise could have, however I still had lots of fun working on it!\n\nCONTROLS\n\nUse WASDZX to move.\n\nW = forwards\nA = left\nS = backwards\nD = right\nZ = up\nX = down\n\nDrag to rotate the camera.");}
+    if (keyCode===73){alert("3D-Engine\n\nThis was my first major project, written during the summer of 2018. At this stage in my education I’d only covered GCSE and FSMQ level mathematics, so I didn’t realise that much of what I’d been working on during those weeks could have been done far more efficiently with a few simple matrix equations… Nevertheless I had a lot of fun writing this and am quite proud of the end result.\n\nCONTROLS:\n\nUse WASDZX to move.\n\nW = forwards\nA = left\nS = backwards\nD = right\nZ = up\nX = down\n\nDirag to rotate the camera.\n\nBonus Info: If you travel over to the stickman in the far right corner of the scene and 'walk' around him, his face will track your movements.\n");
+	    intructionPressed = true;
+    }
     addKeyPressed();
 }

@@ -16,6 +16,7 @@ var vel;
 var windowResize;
 var fps;
 var lineWidthConstantSize;
+var intructionPressed;
 } // Variables
 
 function reset(){
@@ -58,7 +59,7 @@ function setup() {
 	reset();
 	canvas = createCanvas(window.innerWidth, window.innerHeight);
 	firstDraw();
-	popUp("Press H for Help",1);
+	popUp("Press the 'I' Key for Instructions",1);
 }
 
 function seconds(){
@@ -67,17 +68,13 @@ function seconds(){
 
 
 function popUp(MESSAGE,priority){
-	if (W>800){
-		textSize(W/75);
-	} else {
-		textSize(16);
-	}
-	fill(150,200,250,200);
+	textSize(12);
+	fill(150,200,250,100);
 	noStroke();
-	rect(33-W/2,33-H/2+(priority-1)*100,W/5,66,2);
-	fill(255);
+	rect(33-W/2,33-H/2+(priority-1)*100 + 10,200,45,2);
+	fill(6, 81, 156);
 	textAlign(CENTER,CENTER);
-	text(MESSAGE,33-W/2+5,66-H/2+(priority-1)*100,W/5-10);
+	text(MESSAGE,33-W/2+5,66-H/2+(priority-1)*100,200-10);
 }
 
 function note(MESSAGE, X, Y){

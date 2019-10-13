@@ -68,7 +68,7 @@ function scene(){
 }
 
 function addDraw(){
-	note("Tobias Codes", 0, H/2-50);
+// 	note("Tobias Codes", 0, H/2-50);
 }
 
 function addKeyPressed(){
